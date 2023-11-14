@@ -1,9 +1,12 @@
 package com.spring.boot.tutorial.post;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.spring.boot.tutorial.location.Location;
 import com.spring.boot.tutorial.user.User;
@@ -20,7 +23,7 @@ public class PostService {
 	Post post3 = new Post("P3","12-Nov-2023",user3,"My Third Post.");
 	Post post4 = new Post("P4","12-Nov-2024",user4,"My Fourth Post.");
 	
-	List<Post> posts = Arrays.asList(post1,post2,post3,post4);
+	List<Post> posts = new ArrayList<>(Arrays.asList(post1,post2,post3,post4));
 	
 	public List<Post> getAllPosts(){
 		return posts;
@@ -29,5 +32,26 @@ public class PostService {
 	public Post getPost(String id) {
 		Post post = posts.stream().filter(p->id.equalsIgnoreCase(p.getId())).findFirst().orElse(null);
 		return post;
+	}
+	public void addPost(Post post) {
+		posts.add(post);
+	}
+	
+	public void updatePost(@PathVariable String id, @RequestBody Post post) {
+		int pos = 0;
+		for (Post p : posts) {
+			
+			if(p.getId().equalsIgnoreCase(id)) {
+				posts.set(pos, post);
+				return;
+			}
+			else
+				pos++;
+		}
+	}
+
+	public void deletePost(String id) {
+		posts.removeIf(t->id.equalsIgnoreCase(t.getId()));
+		
 	}
 }
