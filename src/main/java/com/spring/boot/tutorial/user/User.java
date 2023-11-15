@@ -1,13 +1,21 @@
 package com.spring.boot.tutorial.user;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import com.spring.boot.tutorial.location.Location;
 
+@Entity
 public class User {
 
+	@Id
 	private String id;
 	private String firstname;
 	private String lastname;
 	private String  email;
+	
+	@ManyToOne
 	private Location location;
 
 	
@@ -19,6 +27,9 @@ public class User {
 		this.lastname = lastname;
 		this.email = email;
 		this.location = location;
+	}
+	public User() {
+		
 	}
 	public String getId() {
 		return id;

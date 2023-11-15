@@ -1,13 +1,21 @@
 package com.spring.boot.tutorial.post;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import com.spring.boot.tutorial.user.User;
 
+@Entity
 public class Post {
 	
+	@Id
 	private String id;
 	private String postingdate;
-	private User user;
 	private String details;
+	
+	@ManyToOne
+	private User user;
 	
 	
 	public Post(String id, String postingdate, User user, String details) {
@@ -16,6 +24,10 @@ public class Post {
 		this.postingdate = postingdate;
 		this.user = user;
 		this.details = details;
+	}
+	
+	public Post() {
+		
 	}
 	public String getId() {
 		return id;

@@ -1,6 +1,7 @@
 package com.spring.boot.tutorial.user;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,26 +19,44 @@ public class UserController {
 	private UserService userservice;
 	
 	@GetMapping("/users")
-	public List<User> getAllUsers(){
+	public List<User> getAllUser(){
 		return userservice.getAllUser();
 	}
-
+	
 	@GetMapping("/users/{id}")
-	public User getUser(@PathVariable String id) {
+	public Optional<User> getUser(@PathVariable String id){
 		return userservice.getUser(id);
 	}
+	
 	@PostMapping("/users")
 	public void addUser(@RequestBody User user) {
 		userservice.addUser(user);
 	}
 	
 	@PutMapping("/users/{id}")
-	public void updateUser(@RequestBody User user,@PathVariable String id) {
-		userservice.updateUser(id,user);
+	public void updateUser(@PathVariable String id, @RequestBody User user) {
+		userservice.updateUser(id, user);
 	}
 	
 	@DeleteMapping("/users/{id}")
 	public void deleteUser(@PathVariable String id) {
 		userservice.deleteUser(id);
 	}
+	/*
+	 * 
+	 * @GetMapping("/users") public List<User> getAllUsers(){ return
+	 * userservice.getAllUser(); }
+	 * 
+	 * @GetMapping("/users/{id}") public User getUser(@PathVariable String id) {
+	 * return userservice.getUser(id); }
+	 * 
+	 * @PostMapping("/users") public void addUser(@RequestBody User user) {
+	 * userservice.addUser(user); }
+	 * 
+	 * @PutMapping("/users/{id}") public void updateUser(@RequestBody User
+	 * user,@PathVariable String id) { userservice.updateUser(id,user); }
+	 * 
+	 * @DeleteMapping("/users/{id}") public void deleteUser(@PathVariable String id)
+	 * { userservice.deleteUser(id); }
+	 */
 }
